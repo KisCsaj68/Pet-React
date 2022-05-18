@@ -57,6 +57,11 @@ def login_user():
     return jsonify({"response": "Invalid data"})
 
 
+@app.route('/logout')
+def handle_logout():
+    session.pop["user_id"]
+
+
 def main():
     app.run(debug=True)
 

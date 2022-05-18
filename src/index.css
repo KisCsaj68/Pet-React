@@ -21,7 +21,7 @@ code {
     /*opacity: 40%;*/
     display: block;
     margin-left: 45%;
-    margin-top: 23%;
+    margin-top: 2%;
     padding: 10px;
     width: fit-content;
 
@@ -175,6 +175,10 @@ span.head {
     color: black;
     margin-inline: 45px;
     display: inline-block;
+}
+
+.hidden {
+    display: none;
 }
 
 

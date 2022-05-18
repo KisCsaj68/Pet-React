@@ -28,11 +28,11 @@ function App() {
     const [cardContent, setCardContent] = useState([<Greeting/>])
     const [trickNameContent, setTrickNameContent] = useState([<names/>])
     const [messages, setMessages] = useState([])
-
+    const [buttons, setButtons] = useState(["Registration", "LogIn"])
 
     return (
         <>
-            <NavBar reg={() => {
+            <NavBar Registration={() => {
                 setTrickNameContent([])
                 setMessages([])
                 setCardContent(<Registration handleRegister={(password, name, email) => {
@@ -46,17 +46,22 @@ function App() {
 
                 }}/>)
 
-            }} home={() => {
+            }} flexButtons={
+                buttons
+            } home={() => {
+
+                setMessages([])
                 setCardContent(<Greeting/>)
                 setTrickNameContent([])
 
-            }} login={() => {
+            }} LogIn={() => {
                 setTrickNameContent([])
                 setCardContent(<LogIn handleLogin={(email, password) => {
-                    postData("/login", {email: email, password:password}).then((response) => {
+                    postData("/login", {email: email, password: password}).then((response) => {
                         if (response["response"] === "ok") {
-                            setMessages(["Successfully log in!"])
                             setCardContent([])
+                            setButtons(["My-Tricks", "LogOut"])
+                            setMessages([])
                         } else {
                             setMessages([`${response["response"]}. Please try again!`]);
                         }
@@ -65,18 +70,29 @@ function App() {
                 }
                 }/>)
 
+            }} LogOut={() => {
+                getData("/logout").then(() => {
+                    setTrickNameContent([])
+                    setMessages([])
+                    setCardContent([])
+                    setButtons(["Registration", "LogIn"])
+                })
+
             }} randomTrick={async () => {
+                setMessages([])
                 let trick = await getData("/tricks/random");
                 setCardContent(<TrickCard trick={trick}/>)
                 setTrickNameContent([])
+
             }} tricks={async (diff) => {
+                setMessages([])
                 let trickNames = await getData(`/tricks/name/${diff}`)
                 setTrickNameContent(<TrickNames trickNames={trickNames} trick={async (TrickId) => {
                     let trick = await getData(`/tricks/${TrickId}`);
                     setCardContent(<TrickCard trick={trick}/>)
                 }
                 }/>)
-                setCardContent([])
+                setCardContent(["Let's start!"])
             }
 
             }/>
@@ -87,7 +103,7 @@ function App() {
             <div className={"card-content"}>
                 {cardContent}
             </div>
-            <div className={"message-content"}>
+            <div className={"message-content" + (messages.length == 0 ? " hidden" : " show")}>
                 {messages}
             </div>
         </>

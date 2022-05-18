@@ -20,8 +20,9 @@ export default function NavBar(props) {
                             <NavDropdown.Item href={"#"} onClick={() => props.tricks(4)}>PAWsome</NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link href={"#"} onClick={props.randomTrick}>Random Trick!</Nav.Link>
-                        <Nav.Link href={"#"} className={"ms-auto"} onClick={props.reg}>Register</Nav.Link>
-                        <Nav.Link href={"#"} onClick={props.login}>LogIn</Nav.Link>
+                        {props.flexButtons.map((button) =>
+                            <Nav.Link href={"#"} className={"ms-auto"} onClick={props[button]}>{button}</Nav.Link>
+                            )}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
