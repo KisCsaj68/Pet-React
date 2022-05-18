@@ -1,0 +1,164 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-image: url("/public/img/background.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.page-content {
+    position: sticky;
+    /*opacity: 50%;*/
+    display: flex;
+    margin-left: 43%;
+    /*top: 40%;*/
+    color: black;
+    font-size: 1.2em;
+
+    /*font-size: 7em;*/
+    /*margin-top: 3%;*/
+    padding-top: 4%;
+    padding-right: 4%;
+    /*width: 65%;*/
+    width: fit-content;
+    height: fit-content;
+
+}
+.card-content {
+    position: sticky;
+    /*opacity: 50%;*/
+    display: flex;
+    margin-left: 43%;
+    /*top: 40%;*/
+    color: black;
+
+    /*font-size: 7em;*/
+    /*margin-top: 3%;*/
+    padding-top: 2%;
+    padding-right: 4%;
+    /*width: 65%;*/
+    width: fit-content;
+    height: fit-content;
+}
+
+.greeting {
+    margin-top: 30%;
+    top: 50%;
+    font-size: 7em;
+    font-family: Chalkboard;
+
+}
+
+.registration-card {
+    position: sticky;
+    opacity: 40%;
+    display: block;
+    margin-left: fill;
+    margin-top: 45%;
+    padding: 24px;
+    width: fit-content;
+    height: fit-content;
+    background-color: white;
+    border: solid black 3px;
+    border-radius: 7px;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    color: black;
+}
+
+iframe {
+    margin-top: 2%;
+    /*background-color: white;*/
+    /*margin-left: 13%;*/
+    align-content: center;
+
+}
+.select{
+    margin-top: 2%;
+    margin-left: 4px;
+}
+.trick-card {
+    position: sticky;
+    /*opacity: 40%;*/
+    display: block;
+    margin-left: fill;
+    /*margin-top: 4%;*/
+    padding: 10px;
+    width: fit-content;
+
+    /*height: fit-content;*/
+    background-color: #ffffff66;
+    border: solid black 3px;
+    border-radius: 7px;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    color: black;
+
+}
+
+footer {
+    font-size: 20px;
+
+    position: fixed;
+    bottom: 0;
+
+    width: 100%;
+    height: 70px;
+    padding: 6px;
+
+    /*-webkit-transform: rotate(-1.5deg) scale(1.5);*/
+    /*transform: rotate(-1.5deg) scale(1.5);*/
+    text-align: center;
+
+
+    color: #fff;
+    background: black;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .2);
+}
+
+.footer-text {
+    text-align: center;
+    color: white;
+}
+
+
+div.head {
+    border-bottom: 4px double black;
+    margin-bottom: 7px;
+
+}
+
+div.card-footer {
+    border-top: 4px double black;
+    margin-top: 4px;
+}
+
+.paws {
+    float: right;
+    font-size: 1.8em;
+}
+
+
+span.head {
+    font-size: 1.8em;
+
+}
+
+.footer-button {
+    align-content: center;
+    color: black;
+    margin-inline: 45px;
+    display: inline-block;
+}
+
+
+
