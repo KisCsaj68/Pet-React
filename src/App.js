@@ -15,11 +15,13 @@ async function getData(url) {
     return {}
 }
 
-async function handler(Id) {
-    let trick = await getData(`/tricks/${Id}`)
-    return trick
-    // setContent(<Trick trick={trick} tricks={tricks}/>)
-
+async function postData(url, payload){
+    const response = await fetch(url, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(payload)
+    })
+    return await response.json()
 }
 
 function App() {
@@ -30,7 +32,9 @@ function App() {
     return (
         <>
             <NavBar reg={() => {
-                setCardContent(<Registration/>)
+                setCardContent(<Registration handleRegister= {(password, name, email) => {
+
+                }}/>)
                 setTrickNameContent([])
 
             }} home={() => {
@@ -46,8 +50,8 @@ function App() {
                 setCardContent(<TrickCard trick={trick}/>)
                 setTrickNameContent([])
             }} tricks={async (diff) => {
-                let names = await getData(`/tricks/name/${diff}`)
-                setTrickNameContent(<TrickNames names={names} trick={async (TrickId) => {
+                let trickNames = await getData(`/tricks/name/${diff}`)
+                setTrickNameContent(<TrickNames trickNames={trickNames} trick={async (TrickId) => {
                     let trick = await getData(`/tricks/${TrickId}`);
                     setCardContent(<TrickCard trick={trick}/>)
                 }

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, jsonify
+from flask import Flask, render_template, url_for, jsonify, request
 import queries
 import random
 
@@ -26,6 +26,12 @@ def get_random_tricks():
     max_id = [item["id"] for item in queries.get_max_id()][0]
     trick_id = random.randint(1, int(max_id))
     return jsonify(queries.get_random_tricks(trick_id))
+
+
+@app.route('/registration', methods=["POST"])
+def get_user_registration():
+    name = request.json["name"]
+    print(name)
 
 
 def main():
