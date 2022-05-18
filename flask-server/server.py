@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, jsonify, request
 import queries
 import random
+from util import hash_password
 
 app = Flask('dog_tricks')
 
@@ -31,7 +32,10 @@ def get_random_tricks():
 @app.route('/registration', methods=["POST"])
 def get_user_registration():
     name = request.json["name"]
-    print(name)
+    hashed_pw = hash_password(request.json["password"])
+    email = request.json["email"]
+    print(name, hashed_pw, email)
+    return jsonify({"response": "ok"})
 
 
 def main():

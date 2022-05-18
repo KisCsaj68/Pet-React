@@ -33,6 +33,7 @@ function App() {
         <>
             <NavBar reg={() => {
                 setCardContent(<Registration handleRegister= {(password, name, email) => {
+                    postData("/registration", {name:name, password:password, email:email}).then((response)=> {console.log(response)})
 
                 }}/>)
                 setTrickNameContent([])
