@@ -33,7 +33,13 @@ function App() {
         <>
             <NavBar reg={() => {
                 setCardContent(<Registration handleRegister= {(password, name, email) => {
-                    postData("/registration", {name:name, password:password, email:email}).then((response)=> {console.log(response)})
+                    postData("/registration", {name:name, password:password, email:email}).then((response)=> {
+                        if (response["response"] === "ok"){
+                            setCardContent(<LogIn/>)
+                            setTrickNameContent(["Successfully registered. Please log in!"])
+                        }else {setTrickNameContent([`${response["response"]}. Please log in!`]);
+                                setCardContent(<LogIn/>)}
+                    })
 
                 }}/>)
                 setTrickNameContent([])

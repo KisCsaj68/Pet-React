@@ -28,3 +28,15 @@ def get_trick_by_id(trick_id):
     SELECT name, description, difficulty, video FROM tricks
     WHERE id = %(trick_id)s
     """, {"trick_id": trick_id})
+
+
+def add_new_user(name, password, email):
+    data_manager.execute_insert("""
+    INSERT INTO users ( name, email, password) VALUES (%(name)s, %(email)s, %(password)s)
+    """, {"name": name, "email": email, "password": password})
+
+
+def check_email(email):
+    return data_manager.execute_select("""
+        SELECT EXISTS(SELECT email FROM users WHERE email = %(email)s) as email
+    """, {"email": email}, fetchall=False)

@@ -34,8 +34,13 @@ def get_user_registration():
     name = request.json["name"]
     hashed_pw = hash_password(request.json["password"])
     email = request.json["email"]
-    print(name, hashed_pw, email)
-    return jsonify({"response": "ok"})
+    email_exists = [item[1] for item in queries.check_email(email).items()]
+    print(email_exists[0])
+    if email_exists[0]:
+        return jsonify({"response": "Already registered!"})
+    else:
+        queries.add_new_user(name, hashed_pw, email)
+        return jsonify({"response": "ok"})
 
 
 def main():
