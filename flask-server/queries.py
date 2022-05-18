@@ -40,3 +40,15 @@ def check_email(email):
     return data_manager.execute_select("""
         SELECT EXISTS(SELECT email FROM users WHERE email = %(email)s) as email
     """, {"email": email}, fetchall=False)
+
+
+def get_user_password(email):
+    return data_manager.execute_select(
+        """SELECT password FROM users WHERE email = %(email)s
+        """, {"email": email}, fetchall=False)
+
+
+def get_user_id(email):
+    return data_manager.execute_select("""
+        SELECT id FROM users WHERE email = %(email)s
+        """, {"email": email}, fetchall=False)

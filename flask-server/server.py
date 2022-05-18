@@ -1,9 +1,11 @@
-from flask import Flask, render_template, url_for, jsonify, request
+from flask import Flask, render_template, url_for, jsonify, request, session
 import queries
 import random
-from util import hash_password
+from util import hash_password, verify_password
+import uuid
 
 app = Flask('dog_tricks')
+app.secret_key = uuid.uuid4()
 
 
 @app.route('/')
@@ -41,6 +43,18 @@ def get_user_registration():
     else:
         queries.add_new_user(name, hashed_pw, email)
         return jsonify({"response": "ok"})
+
+
+@app.route('/login', methods=["POST"])
+def login_user():
+    email = request.json["email"]
+    hashed_password = ([item[1] for item in queries.get_user_password(email).items()][0])
+    user_id = ([item[1] for item in queries.get_user_id(email).items()][0])
+    password = request.json["password"]
+    if verify_password(password, hashed_password):
+        session["user_id"] = user_id
+        return jsonify({"response": "ok"})
+    return jsonify({"response": "Invalid data"})
 
 
 def main():
