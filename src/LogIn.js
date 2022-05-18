@@ -1,7 +1,7 @@
 import React from "react";
 import button from "bootstrap/js/src/button";
 
-export default function LogIn() {
+export default function LogIn(props) {
     return (
         <>
             <div className={"registration-card"}>
@@ -16,19 +16,24 @@ export default function LogIn() {
                         <td></td>
                     </tr>
                     <tr>
-                        <td><label>User Name: </label></td>
-                        <td><input type={"text"} placeholder={"User name"}/></td>
+                        <td><label>User email: </label></td>
+                        <td><input type={"text"} placeholder={"User name"} id={"email"}/></td>
                     </tr>
 
                     <tr>
                         <td>Password:</td>
-                        <td><input type={"password"} placeholder={"Password"}/></td>
+                        <td><input type={"password"} placeholder={"Password"} id={"pw"}/></td>
                     </tr>
                     </tbody>
                     <tfoot>
                     <tr>
                         <td>
-                            <button type={"button"}>Log Me in!</button>
+                            <button type={"button"} onClick={() => {
+                                let password = document.querySelector("#pw").value
+                                let email = document.querySelector("#email").value
+                                props.handleLogin(email, password)
+                            }}>Log Me in!
+                            </button>
                         </td>
                     </tr>
                     </tfoot>

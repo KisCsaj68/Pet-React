@@ -16,6 +16,23 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.message-content{
+    position: sticky;
+    /*opacity: 40%;*/
+    display: block;
+    margin-left: 45%;
+    margin-top: 23%;
+    padding: 10px;
+    width: fit-content;
+
+    /*height: fit-content;*/
+    background-color: #ffffff66;
+    border: solid black 3px;
+    border-radius: 7px;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    color: black;
+
+}
 
 .page-content {
     position: sticky;

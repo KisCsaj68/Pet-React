@@ -15,10 +15,10 @@ async function getData(url) {
     return {}
 }
 
-async function postData(url, payload){
+async function postData(url, payload) {
     const response = await fetch(url, {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(payload)
     })
     return await response.json()
@@ -27,30 +27,43 @@ async function postData(url, payload){
 function App() {
     const [cardContent, setCardContent] = useState([<Greeting/>])
     const [trickNameContent, setTrickNameContent] = useState([<names/>])
+    const [messages, setMessages] = useState([])
 
 
     return (
         <>
             <NavBar reg={() => {
-                setCardContent(<Registration handleRegister= {(password, name, email) => {
-                    postData("/registration", {name:name, password:password, email:email}).then((response)=> {
-                        if (response["response"] === "ok"){
-                            setCardContent(<LogIn/>)
-                            setTrickNameContent(["Successfully registered. Please log in!"])
-                        }else {setTrickNameContent([`${response["response"]}. Please log in!`]);
-                                setCardContent(<LogIn/>)}
+                setTrickNameContent([])
+                setMessages([])
+                setCardContent(<Registration handleRegister={(password, name, email) => {
+                    postData("/registration", {name: name, password: password, email: email}).then((response) => {
+                        if (response["response"] === "ok") {
+                            setMessages(["Successfully registered. Please log in!"])
+                        } else {
+                            setMessages([`${response["response"]}. Please log in!`]);
+                        }
                     })
 
                 }}/>)
-                setTrickNameContent([])
 
             }} home={() => {
                 setCardContent(<Greeting/>)
                 setTrickNameContent([])
 
             }} login={() => {
-                setCardContent(<LogIn/>)
                 setTrickNameContent([])
+                setCardContent(<LogIn handleLogin={(email, password) => {
+                    postData("/login", {email: email, password:password}).then((response) => {
+                        if (response["response"] === "ok") {
+                            setMessages(["Successfully log in!"])
+                            setCardContent([])
+                        } else {
+                            setMessages([`${response["response"]}. Please try again!`]);
+                        }
+
+                    })
+                }
+                }/>)
 
             }} randomTrick={async () => {
                 let trick = await getData("/tricks/random");
@@ -73,6 +86,9 @@ function App() {
             </div>
             <div className={"card-content"}>
                 {cardContent}
+            </div>
+            <div className={"message-content"}>
+                {messages}
             </div>
         </>
     );

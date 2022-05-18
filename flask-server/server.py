@@ -5,7 +5,7 @@ from util import hash_password, verify_password
 import uuid
 
 app = Flask('dog_tricks')
-app.secret_key = uuid.uuid4()
+app.secret_key = str(uuid.uuid4())
 
 
 @app.route('/')
