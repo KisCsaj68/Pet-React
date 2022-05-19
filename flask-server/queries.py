@@ -3,7 +3,7 @@ import data_manager
 
 def get_random_tricks(trick_id):
     return data_manager.execute_select("""
-    SELECT name, description, difficulty, video FROM tricks
+    SELECT id, name, description, difficulty, video FROM tricks
     WHERE id = %(trick_id)s
     """, {"trick_id": trick_id})
 
@@ -25,7 +25,7 @@ def get_trick_by_difficulty(diff):
 
 def get_trick_by_id(trick_id):
     return data_manager.execute_select("""
-    SELECT name, description, difficulty, video FROM tricks
+    SELECT id, name, description, difficulty, video FROM tricks
     WHERE id = %(trick_id)s
     """, {"trick_id": trick_id})
 
@@ -52,3 +52,19 @@ def get_user_id(email):
     return data_manager.execute_select("""
         SELECT id FROM users WHERE email = %(email)s
         """, {"email": email}, fetchall=False)
+
+
+def get_tricks_by_user_id(user_id):
+    return data_manager.execute_select("""
+    SELECT t.id, t.name, t.difficulty, t.description, t.video, status FROM user_tricks
+    INNER JOIN tricks t on user_tricks.trick_id = t.id
+    WHERE user_id=%(user_id)s
+    """, {"user_id": user_id})
+
+
+def get_tricks_name_by_user_id(user_id):
+    return data_manager.execute_select("""
+    SELECT t.name, t.id FROM user_tricks
+    INNER JOIN tricks t on user_tricks.trick_id = t.id
+    WHERE user_id=%(user_id)s
+    """, {"user_id": user_id})

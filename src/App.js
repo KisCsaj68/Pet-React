@@ -25,15 +25,19 @@ async function postData(url, payload) {
 }
 
 function App() {
-    const [cardContent, setCardContent] = useState([<Greeting/>])
-    const [trickNameContent, setTrickNameContent] = useState([<names/>])
+    const [cardContent, setCardContent] = useState(<Greeting/>)
+    const [trickNameContent, setTrickNameContent] = useState(null)
     const [messages, setMessages] = useState([])
     const [buttons, setButtons] = useState(["Registration", "LogIn"])
-
+    const [cardActions, setCardActions] = useState([])
+    let trickData = async function (trickId) {
+                    let trick = await getData(`/tricks/${trickId}`);
+                    setCardContent(<TrickCard trick={trick} buttons={cardActions}/>)
+                }
     return (
         <>
             <NavBar Registration={() => {
-                setTrickNameContent([])
+                setTrickNameContent(null)
                 setMessages([])
                 setCardContent(<Registration handleRegister={(password, name, email) => {
                     postData("/registration", {name: name, password: password, email: email}).then((response) => {
@@ -52,50 +56,62 @@ function App() {
 
                 setMessages([])
                 setCardContent(<Greeting/>)
-                setTrickNameContent([])
+                setTrickNameContent(null)
 
             }} LogIn={() => {
-                setTrickNameContent([])
+
+                setTrickNameContent(null)
                 setCardContent(<LogIn handleLogin={(email, password) => {
                     postData("/login", {email: email, password: password}).then((response) => {
                         if (response["response"] === "ok") {
-                            setCardContent([])
-                            setButtons(["My-Tricks", "LogOut"])
+                            setCardContent(null)
+                            setButtons(["My-Tricks", "Completed-tricks", "LogOut"])
+                            setCardActions(["Fav", "Completed"])
                             setMessages([])
                         } else {
                             setMessages([`${response["response"]}. Please try again!`]);
                         }
-
                     })
                 }
                 }/>)
 
             }} LogOut={() => {
                 getData("/logout").then(() => {
-                    setTrickNameContent([])
+                    setTrickNameContent(null)
                     setMessages([])
-                    setCardContent([])
+                    setCardContent(null)
+                    setCardActions([])
                     setButtons(["Registration", "LogIn"])
                 })
 
             }} randomTrick={async () => {
                 setMessages([])
                 let trick = await getData("/tricks/random");
-                setCardContent(<TrickCard trick={trick}/>)
-                setTrickNameContent([])
+                setCardContent(<TrickCard trick={trick} buttons={cardActions}/>)
+                setTrickNameContent(null)
 
             }} tricks={async (diff) => {
-                setMessages([])
+                // let trickData = async function (trickId) {
+                //     let trick = await getData(`/tricks/${trickId}`);
+                //     setCardContent(<TrickCard trick={trick} buttons={cardActions}/>)
+                // }
                 let trickNames = await getData(`/tricks/name/${diff}`)
-                setTrickNameContent(<TrickNames trickNames={trickNames} trick={async (TrickId) => {
-                    let trick = await getData(`/tricks/${TrickId}`);
-                    setCardContent(<TrickCard trick={trick}/>)
-                }
-                }/>)
-                setCardContent(["Let's start!"])
-            }
+                setMessages([])
+                await trickData(trickNames[0].id)
+                setTrickNameContent(<TrickNames trickNames={trickNames}
+                                                trick={async (TrickId) => await trickData(TrickId)
+                                                }/>)
+            }} My-Tricks={async () => {
+                let trickNames = await getData("/user/tricks/name")
+                setCardContent([]);
+                setCardActions(["Completed"])
+                setMessages([]);
+                await trickData(trickNames[0].id)
+                setTrickNameContent(<TrickNames trickNames={trickNames}
+                                                trick={async (TrickId) => await trickData(TrickId)
+                                                }/>)
 
-            }/>
+            }}/>
 
             <div className={"page-content"}>
                 {trickNameContent}

@@ -16,7 +16,8 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.message-content{
+
+.message-content {
     position: sticky;
     /*opacity: 40%;*/
     display: block;
@@ -52,6 +53,7 @@ code {
     height: fit-content;
 
 }
+
 .card-content {
     position: sticky;
     /*opacity: 50%;*/
@@ -62,7 +64,7 @@ code {
 
     /*font-size: 7em;*/
     /*margin-top: 3%;*/
-    padding-top: 2%;
+    padding-top: 1%;
     padding-right: 4%;
     /*width: 65%;*/
     width: fit-content;
@@ -100,10 +102,12 @@ iframe {
     align-content: center;
 
 }
-.select{
+
+.select {
     margin-top: 2%;
     margin-left: 4px;
 }
+
 .trick-card {
     position: sticky;
     /*opacity: 40%;*/
@@ -173,13 +177,27 @@ span.head {
 .footer-button {
     align-content: center;
     color: black;
-    margin-inline: 45px;
+    margin-inline: 19%;
     display: inline-block;
 }
 
 .hidden {
     display: none;
 }
+
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                     supported by Chrome, Edge, Opera and Firefox */
+}
+
+
 
 
 

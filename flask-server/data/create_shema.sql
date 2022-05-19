@@ -27,8 +27,8 @@ CREATE TABLE user_tricks (
     id SERIAL PRIMARY KEY NOT NULL,
     user_id INTEGER,
     trick_id INTEGER,
-    status VARCHAR,
-    favorite bool
+    status bool
+
 );
 
 

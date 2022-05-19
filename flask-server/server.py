@@ -62,6 +62,19 @@ def handle_logout():
     session.pop["user_id"]
 
 
+@app.route('/user/tricks')
+def get_tricks_by_user():
+    user_id = session["user_id"]
+    return jsonify(queries.get_tricks_by_user_id(user_id))
+
+
+@app.route('/user/tricks/name')
+def get_tricks_name_by_user():
+    user_id = session["user_id"]
+    print(session["user_id"])
+    return jsonify(queries.get_tricks_name_by_user_id(user_id))
+
+
 def main():
     app.run(debug=True)
 
