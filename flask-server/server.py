@@ -68,11 +68,26 @@ def get_tricks_by_user():
     return jsonify(queries.get_tricks_by_user_id(user_id))
 
 
-@app.route('/user/tricks/name')
-def get_tricks_name_by_user():
+@app.route('/user/tricks/name/<type>')
+def get_tricks_name_by_user(type):
     user_id = session["user_id"]
-    print(session["user_id"])
-    return jsonify(queries.get_tricks_name_by_user_id(user_id))
+    return jsonify(queries.get_tricks_name_by_user_id(user_id, type))
+
+
+@app.route('/user/trick/add/<trick_id>', methods=["POST", "PUT"])
+def add_new_user_tricks(trick_id):
+    if session["user_id"]:
+        user_id = session["user_id"]
+        if request.method == "POST":
+            for item in queries.get_user_trick_exists(user_id, trick_id):
+                trick_exists = item["exists"]
+            if not trick_exists:
+                queries.add_new_user_tricks(user_id, trick_id)
+                return jsonify({"response": "ok"})
+        elif request.method == "PUT":
+            queries.update_user_tricks(user_id, trick_id)
+            return jsonify({"response": "ok"})
+    return jsonify({"response": "error"})
 
 
 def main():

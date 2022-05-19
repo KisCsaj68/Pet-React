@@ -1,3 +1,5 @@
+from flask import session
+from functools import wraps
 import bcrypt
 
 
@@ -10,6 +12,16 @@ def hash_password(plain_text_password):
 def verify_password(plain_text_password, hashed_password):
     hashed_bytes_password = hashed_password.encode('utf-8')
     return bcrypt.checkpw(plain_text_password.encode('utf-8'), hashed_bytes_password)
+
+
+def check_login(wrapped_function):
+    @wraps(wrapped_function)
+    def decorated_function(*args, **kwargs):
+        if "id" not in session:
+            pass
+        return wrapped_function(*args, **kwargs)
+
+    return decorated_function
 
 
 if __name__ == '__main__':

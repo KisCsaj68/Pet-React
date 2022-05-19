@@ -1,6 +1,6 @@
 import React from "react";
 import {Nav, Navbar, NavbarBrand, NavDropdown} from "react-bootstrap";
-import logo from "./logo.svg";
+import logo from "./paw.png";
 
 
 export default function NavBar(props) {
@@ -11,7 +11,7 @@ export default function NavBar(props) {
             <Navbar bg="dark" variant="dark" fixed={"top"} expand={"lg"} className={"noselect"}>
                 <NavbarBrand onClick={props.home}>
                     <img src={logo} width="40px" height="40px" alt={"reactLogo"}/>
-                    Dog Tricks</NavbarBrand>
+                     Dog Tricks</NavbarBrand>
                 <Navbar.Toggle></Navbar.Toggle>
                 <Navbar.Collapse>
                     <Nav className={"container-fluid"}>
@@ -36,7 +36,7 @@ export default function NavBar(props) {
 
 export function Greeting() {
     return (
-        <div className={"greeting"}>How to train your T-rex</div>
+        <div className={"greeting"}></div>
 
     )
 }

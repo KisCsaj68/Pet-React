@@ -58,13 +58,31 @@ def get_tricks_by_user_id(user_id):
     return data_manager.execute_select("""
     SELECT t.id, t.name, t.difficulty, t.description, t.video, status FROM user_tricks
     INNER JOIN tricks t on user_tricks.trick_id = t.id
-    WHERE user_id=%(user_id)s
+    WHERE user_id=%(user_id)s AND status=false
     """, {"user_id": user_id})
 
 
-def get_tricks_name_by_user_id(user_id):
+def get_tricks_name_by_user_id(user_id, type):
     return data_manager.execute_select("""
     SELECT t.name, t.id FROM user_tricks
     INNER JOIN tricks t on user_tricks.trick_id = t.id
-    WHERE user_id=%(user_id)s
-    """, {"user_id": user_id})
+    WHERE user_id=%(user_id)s AND status=%(type)s
+    """, {"user_id": user_id, "type": type})
+
+
+def get_user_trick_exists(user_id, trick_id):
+    return data_manager.execute_select("""
+        SELECT EXISTS(SELECT %(trick_id)s from user_tricks WHERE user_id = %(user_id)s AND trick_id = %(trick_id)s)
+    """, {"user_id": user_id, "trick_id": trick_id})
+
+
+def add_new_user_tricks(user_id, trick_id):
+    data_manager.execute_insert("""
+    INSERT INTO user_tricks (user_id, trick_id, status) VALUES (%(user_id)s, %(trick_id)s, false)
+    """, {"user_id": user_id, "trick_id": trick_id})
+
+
+def update_user_tricks(user_id, trick_id):
+    data_manager.execute_update("""
+    UPDATE user_tricks SET status = true WHERE user_id=%(user_id)s AND trick_id=%(trick_id)s
+    """, {"user_id": user_id, "trick_id": trick_id})
